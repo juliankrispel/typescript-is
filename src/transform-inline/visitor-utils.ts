@@ -267,14 +267,6 @@ export function getUndefinedFunction(visitorContext: VisitorContext) {
 export function getNullFunction(visitorContext: VisitorContext) {
     const name = '_null';
     return setFunctionIfNotExists(name, visitorContext, () => {
-        const strictNullChecks = visitorContext.compilerOptions.strictNullChecks !== undefined
-            ? visitorContext.compilerOptions.strictNullChecks
-            : !!visitorContext.compilerOptions.strict;
-
-        if (!strictNullChecks) {
-            return createAcceptingFunction(name);
-        }
-
         return createAssertionFunction(
             ts.createStrictInequality(
                 objectIdentifier,
